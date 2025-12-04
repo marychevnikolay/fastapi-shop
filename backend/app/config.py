@@ -1,10 +1,11 @@
-from pydantic_settings import BaseSettings  
+from pydantic_settings import BaseSettings # type: ignore
+from typing import List, Union
 
 class Settings(BaseSettings):
-    app_name: str = "FastAPI shop"
+    app_name: str = "FastAPI Shop"
     debug: bool = True
     database_url: str = "sqlite:///./shop.db"
-    cors_origins: list= [
+    cors_origins: Union[List[str], str] = [
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
@@ -16,4 +17,4 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
-Settings = Settings()        
+settings = Settings()
