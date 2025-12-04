@@ -63,11 +63,9 @@ class CartService:
                 product = products_dict[product_id]
                 subtotal = product.price * quantity
 
-                cart_item = CartItem(
-                    product_id=product.id, name=product.name,
+                cart_item = CartItem(product_id=product.id, name=product.name,
                     price=product.price, quantity=quantity, subtotal=subtotal,
-                    image_url=product.image_url
-                )
+                    image_url=product.image_url)
 
                 cart_items.append(cart_item)
                 total_price += subtotal

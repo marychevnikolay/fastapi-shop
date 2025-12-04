@@ -3,26 +3,26 @@ from typing import Optional
 
 class CartItemBase(BaseModel):
     product_id: int = Field(..., description="Product ID")
-    quantity: int = Field(..., gt=0, description="Product quantity")
+    quantity: int = Field(..., gt=0, description="Quantity (must be greater than 0)")
 
 class CartItemCreate(CartItemBase):
     pass
 
-class CartItemUpdate(CartItemBase):
-    product_id: int=Field(..., description="Product ID")
-    quantity: int=Field(..., gt=0, 
-                        description="New Product quantity")
+class CartItemUpdate(BaseModel):
+    product_id: int = Field(..., description="Product ID")
+    quantity: int = Field(..., gt=0,
+                            description="New quantity (must be greater than 0)")
 
 class CartItem(BaseModel):
-    product_id:int
-    name: str=Field(..., description="Product name")
-    price: float=Field(..., gt=0, description="Product price")
-    quantity: int=Field(..., gt=0, description="Product quantity in cart")
-    subtotal: float=Field(...,  
-                          description="Total prise for this item(prise * quantity)")
-    image_url: Optional[str]=Field(None, description="Product image url")
+    product_id: int
+    name: str = Field(..., description="Product name")
+    price: float = Field(..., description="Product price")
+    quantity: int = Field(..., description="Quantity in cart")
+    subtotal: float = Field(...,
+                        description="Total price for this item (price * quantity)")
+    image_url: Optional[str] = Field(None, description="Product image URL")
 
 class CartResponse(BaseModel):
-    items: list[CartItem]=Field(..., description="List of cart items")
-    total: float=Field(..., description="Total prise for all items in cart")
-    items_count: int=Field(..., description="Total number of items in cart")
+    items: list[CartItem] = Field(..., description="List of items in cart")
+    total: float = Field(..., description="Total cart price")
+    items_count: int = Field(..., description="Total number of items in cart")

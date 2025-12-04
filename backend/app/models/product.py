@@ -1,19 +1,20 @@
-from sqlalchemy import Column, Float, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from app.database import Base
+from ..database import Base
 
 class Product(Base):
     __tablename__ = "products"
+
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    description = Column(String)
+    name = Column(String, nullable=False, index=True)
+    description = Column(Text)
     price = Column(Float, nullable=False)
-    category_id = Column(Integer, ForeignKey("categories.id"),nullable=False)
-    category = relationship("Category", back_populates="products")
+    category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
     image_url = Column(String)
-    created_at = Column(String, nullable=False, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    #updated_at = Column(String, nullable=False, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    category = relationship("Category", back_populates="products")
 
     def __repr__(self):
-        return f"Product(id={self.id}, price={self.price})"
+        return f"<Product(id={self.id}, name='{self.name}', price={self.price})>"
